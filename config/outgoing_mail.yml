@@ -1,0 +1,11 @@
+# SMTP configuration. Configure these env vars in Klutch if you want
+# Canvas to send notification emails. Safe to leave unset for dev/test.
+production:
+  address:        <%= ENV['SMTP_HOST'] %>
+  port:           <%= ENV.fetch('SMTP_PORT', 587) %>
+  user_name:      <%= ENV['SMTP_USER'] %>
+  password:       <%= ENV['SMTP_PASSWORD'] %>
+  authentication: <%= ENV.fetch('SMTP_AUTH', 'plain') %>
+  domain:         <%= ENV['CANVAS_DOMAIN'] %>
+  outgoing_address: <%= ENV.fetch('SMTP_FROM', "no-reply@#{ENV['CANVAS_DOMAIN']}") %>
+  default_name:   "Canvas LMS"

@@ -1,0 +1,60 @@
+# Local-only stack to test the Canvas image before deploying to Klutch.
+# DO NOT use this for production.
+version: "3.9"
+
+services:
+  canvas:
+    build:
+      context: .
+      args:
+        CANVAS_BRANCH: stable
+    ports:
+      - "3000:3000"
+    environment:
+      CANVAS_DOMAIN: localhost:3000
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: canvas
+      DATABASE_USER: canvas
+      DATABASE_PASSWORD: canvas
+      REDIS_URL: redis://redis:6379
+      SECRET_KEY_BASE: dev-secret-key-base-change-me
+      ENCRYPTION_KEY: dev-encryption-key-change-me-32b
+      RAILS_ENV: production
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_SERVE_STATIC_FILES: "true"
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+      SMTP_AUTH: ""
+    depends_on:
+      - postgres
+      - redis
+      - mailhog
+    volumes:
+      - canvas_assets:/app/public/assets
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: canvas
+      POSTGRES_USER: canvas
+      POSTGRES_PASSWORD: canvas
+    volumes:
+      - canvas_pg:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025" # web UI
+      - "1025:1025" # SMTP
+
+volumes:
+  canvas_assets:
+  canvas_pg:

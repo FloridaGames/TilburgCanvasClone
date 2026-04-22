@@ -1,0 +1,5 @@
+# Canvas LMS Redis config — Klutch Redis add-on
+production:
+  servers:
+    - <%= ENV['REDIS_URL'] %>
+  database: 1

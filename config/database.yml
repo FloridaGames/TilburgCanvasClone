@@ -1,0 +1,23 @@
+# Canvas LMS database config — Klutch Postgres
+# Reads DATABASE_* env vars from the Klutch app environment.
+production:
+  adapter: postgresql
+  encoding: utf8
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV.fetch('DATABASE_PORT', 5432) %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  pool: <%= ENV.fetch('DATABASE_POOL', 20) %>
+  timeout: 5000
+  prepared_statements: true
+  open: 5
+  queue:
+    adapter: postgresql
+    encoding: utf8
+    host: <%= ENV['DATABASE_HOST'] %>
+    port: <%= ENV.fetch('DATABASE_PORT', 5432) %>
+    database: <%= ENV.fetch('QUEUE_DATABASE_NAME', ENV['DATABASE_NAME']) %>
+    username: <%= ENV['DATABASE_USER'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    pool: <%= ENV.fetch('DATABASE_POOL', 20) %>

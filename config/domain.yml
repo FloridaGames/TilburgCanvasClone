@@ -1,0 +1,5 @@
+# Canvas LMS domain config — uses the Klutch-assigned *.klutch.sh hostname.
+production:
+  domain: <%= ENV['CANVAS_DOMAIN'] %>
+  ssl: true
+  files_domain: <%= ENV['CANVAS_DOMAIN'] %>

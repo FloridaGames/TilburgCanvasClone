@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+*.log
+tmp/
+node_modules/
+public/assets/
+public/dist/
+public/javascripts/translations/
+log/
+coverage/
+.bundle/
+vendor/bundle/
